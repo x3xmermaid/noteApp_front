@@ -17,7 +17,7 @@ module.exports = StyleSheet.create({
           
         },
         box: {
-          backgroundColor: 'yellow',
+          // backgroundColor: 'yellow',
           height: 140,
           width: 140,
           marginTop: 15,
@@ -113,9 +113,6 @@ module.exports = StyleSheet.create({
           right: 3,
           top: 3,
           padding: 10,
-          // elevation: 4,
-          // borderWidth: 2,
-          // borderColor: 'black',
           zIndex: 3,
           backgroundColor: 'white',
           shadowColor: "#000",
@@ -125,7 +122,6 @@ module.exports = StyleSheet.create({
           },
           shadowOpacity: 0.22,
           shadowRadius: 2.22,
-
           elevation: 3,
         },
         textPop: {
@@ -161,10 +157,11 @@ module.exports = StyleSheet.create({
           // backgroundColor: 'black'
         },
         sideFlat: {
-          height: 150,
+          height: 250,
           marginTop: 65,
           // backgroundColor: 'blue',
           // alignItems: 'top'
+          // paddi
         },
         sideItem: {
           flexDirection: 'row',

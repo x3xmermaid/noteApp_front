@@ -41,7 +41,7 @@ class Header extends Component {
                 {this.state.Pop == true && <Pop _onPressButtonPop={this._onPressButtonPop}/>}
                 {this.state.SideBar == true && <Sidebar _onPressButtonSideBar={this._onPressButtonSideBar}/>}
                 {/* <Pop></Pop> */}
-                <View style={styles.header}>
+                {/* <View style={styles.header}> */}
                     <HeaderImage imageSource={this.state.imageSource} headerStyle={style.iconHeader}></HeaderImage>
                     <HeaderItem headerText={this.state.Title}></HeaderItem>
                     <HeaderImage imageSource={this.state.imageSource}></HeaderImage>

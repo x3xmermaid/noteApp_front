@@ -17,7 +17,8 @@ class Header extends Component {
             imageSource: require('../assets/img/sort-512.png'),
             imageSource2: require('../assets/img/img.png'),
             style1: styles.iconHeader,
-            style2: styles.imgHeader
+            style2: styles.imgHeader,
+            modalVisible: false,
         },
         
         _onPressButtonOut = () => {
@@ -41,7 +42,7 @@ class Header extends Component {
             <View >
                 {this.state.Pop == true && <Pop _onPressButtonPop={this._onPressButtonPop}/>}
                 {this.state.SideBar == true && <Sidebar _onPressButtonSideBar={this._onPressButtonSideBar}/>}
-                <Sidebar></Sidebar>
+                {/* <Sidebar></Sidebar> */}
                 <View style={styles.header}>
                     <HeaderImage imageSource={this.state.imageSource2} _onPressButton={this._onPressButtonSideBar} headerStyle={this.state.style2}></HeaderImage>
                     <HeaderItem headerText={"Home"}></HeaderItem>

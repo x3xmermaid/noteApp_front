@@ -6,6 +6,11 @@ import NoteAdd from './src/screens/NoteAdd'
 import NoteEdit from './src/screens/NoteEdit'
 // import NoteAdd from './src/screens/NoteAdd'
 
+
+// const favicon = require('serve-favicon');
+// const path = require('path');
+// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico') ) );
+
 const AppNavigator = createStackNavigator({
   Home: {
     screen: Home,
