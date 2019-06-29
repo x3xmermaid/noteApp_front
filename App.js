@@ -15,11 +15,11 @@ const AppNavigator = createStackNavigator({
   Home: {
     screen: Home,
   },
-  NoteEdit: {
-    screen: NoteEdit,
-  },
   NoteAdd: {
     screen: NoteAdd,
+  },
+  NoteEdit: {
+    screen: NoteEdit,
   },
 },{
   headerMode: 'none',

@@ -19,6 +19,8 @@ import DummyData from '../assets/dummy'
 import Pop from '../components/popBox'
 import { TextInput } from 'react-native-gesture-handler';
 import axios from 'axios'
+import { SearchBar } from 'react-native-elements';
+import moment from 'moment'
 let styles = require('../assets/style')
 
 
@@ -31,31 +33,44 @@ export default class App extends Component {
             counter: 0,
             Title: 'Mermaid',
             Pop: 0,
+            isLoad: false,
+            Note: []
             // modalVisible: true
         }
     }
-    _onPress= (value, value2) => {
+    _onPress= (value, value2, value3, value4) => {
         const {navigation} = this.props
         navigation.navigate('NoteEdit', {
           title: value,
-          note: value2
+          note: value2,
+          id: value3,
+          id_category: value4
         })
     }
     componentDidMount(){
-      axios.get(`http://192.168.6.119:3001/notes`).then(
+      axios.get(`http://192.168.6.119:3001/notes?join=category+id_category+no`).then(
         res => {
-          const data1 = res.data
-          console.log(data1)
+          const data = res.data
+          this.setState({
+            Note: data.data
+          })
+          // return data.data;
         }
-      )
-      .catch(function(error) {
-        console.log(error);
-         // ADD THIS THROW error
+        )
+        .catch(function(error) {
+          console.log(error);
+          // ADD THIS THROW error
           throw error;
         });
+        // console.log(this.state.Note)
+
     }
+    componentWillUpdate(){
       
+    }
     render() {
+      let tgl = moment(new Date()).format("YYYY-MM-DD")
+      
     return (
         <View style={styles.container}>
             {this.state.Pop == 1 && <Pop/>}
@@ -64,38 +79,40 @@ export default class App extends Component {
                 {/* <Head/> */}
                 {/* <View style={styles.space}></View> */}
             {/* <ScrollView contentContainerStyle={styles.body}> */}
-            <TextInput style={styles.searchBody}>{"Search ..."}</TextInput>
+            <TextInput style={styles.searchBody} placeholder={`SearchBar...`}>{}</TextInput>
+            <View style={{height:410}}>
             <FlatList
-                data={DummyData}
+                data={this.state.Note}
                 numColumns={2}
+                
                 renderItem={({item}) => {
+                        let color = ''
+                        if(item.id_category == 1){
+                          color = '#2FC2DF'  
+                        }if (item.id_category == 2){
+                          color = '#FAD06C'
+                        }
+                        if (item.id_category == 3){
+                          color = 'red'
+                        }
+                        if (item.id_category == 4){
+                          color = '#FF92A9'
+                        }
                         return (
-                            <TouchableOpacity onPress={() =>  this._onPress(item.Title, item.Note)} >
-                                <View style={styles.box} >
-                                    <Text style={styles.textDateList}>{item.date}</Text>
-                                    <Text numberOfLines={1} style={styles.textTitle}>{item.Title}</Text>
-                                    <Text numberOfLines={1} style={styles.textCategory}>{item.Category}</Text>
-                                    <Text numberOfLines={4} style={styles.textDetail}>{item.Note}</Text>
+                            <TouchableOpacity  onPress={() =>  this._onPress(item.title, item.note, item.id, item.id_category)}>
+                                <View style={[styles.box, {backgroundColor:color}] } >
+                                    <Text style={styles.textDateList}>{moment(item.time).format("YYYY-MM-DD")}</Text>
+                                    <Text numberOfLines={1} style={styles.textTitle}>{item.title}</Text>
+                                    <Text numberOfLines={1} style={styles.textCategory2}>{item.category}</Text>
+                                    <Text numberOfLines={4} style={styles.textDetail}>{item.note}</Text>
                                 </View>
                             </TouchableOpacity>
                         )
                     }
                 }
             />
+            </View>
 
-                {/* <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View>
-                <View style={styles.box}></View> */}
-            {/* </ScrollView> */}
             </View>
                 <Fab/>
             

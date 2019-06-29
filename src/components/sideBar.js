@@ -5,7 +5,7 @@ import Pop from '../components/popBox'
 import Dummy from '../assets/dummy'
 import PopupCategory from '../components/modals'
 import { ScrollView } from 'react-native-gesture-handler';
-
+import axios from 'axios'
 // import console = require('console');
 
 class Sidebar extends Component {
@@ -14,6 +14,7 @@ class Sidebar extends Component {
         
         this.state = {
             modalVisible: false,
+            category: [],
         }
         this.setModalVisible = this.setModalVisible.bind(this);
     }
@@ -24,7 +25,25 @@ class Sidebar extends Component {
         console.log("masuk stet");
         this.setState({modalVisible: visible});
     }
+    componentDidMount(){
+        axios.get(`http://192.168.6.119:3001/category`).then(
+        res => {
+          const data = res.data
+        //   console.log(data)
+          this.setState({
+            category: data.data
+          })
+          // return data.data;
+        }
+        )
+        .catch(function(error) {
+          console.log(error);
+          // ADD THIS THROW error
+          throw error;
+        });
+    }
     render(){
+        console.log(this.state.category)
         return (
             <View >
                 <Modal transparent={true} visible={this.state.modalVisible} onRequestClose={()=>this.setModalVisible(false)} 
@@ -39,59 +58,21 @@ class Sidebar extends Component {
                         <Text style={styles.sideTextProfile}>{"Beauty Mermaid"}</Text>
                     </View>
                     <View>
-                        <ScrollView style={styles.sideFlat}>
-                            <TouchableOpacity style={{width: '100%', flexDirection: 'row', alignItems: 'center', paddingLeft: 18, }} onPress={() => this.setModalVisible(true)}>
-                                <Image source={require('../assets/img/img.png')} style={{width: 20, height: 20}}/>
-                                <Text style={styles.drawer}>Add Category</Text>
+                        <ScrollView style={styles.sideFlat} >
+                            {this.state.category.map((item, index) => {
+                                    return (
+                                        <View style={styles.sideItem}>
+                                            <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
+                                            <Text style={styles.textItem}>{item.category}</Text>
+                                        </View>
+                                    )
+                            })}
+                            <TouchableOpacity style={{width: '100%', flexDirection: 'row'}} onPress={() => this.setModalVisible(true)}>
+                                <View style={styles.sideItem}>
+                                    <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
+                                    <Text style={styles.textItem}>{"Add Category"}</Text>
+                                </View>
                             </TouchableOpacity>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            {/* <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View>
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"MErmaid 4 You"}</Text>
-                            </View> */}
-                            <View style={styles.sideItem}>
-                                <ImageBackground source={require('../assets/img/lamp.png')} style={styles.sideIcon}></ImageBackground>
-                                <Text style={styles.textItem}>{"Add Category"}</Text>
-                            </View>
                         </ScrollView>
                     </View>
                     

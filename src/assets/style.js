@@ -24,9 +24,19 @@ module.exports = StyleSheet.create({
           marginBottom: 15,
           marginRight: 15,
           marginLeft: 15,
-          borderTopLeftRadius: 25,
-          borderBottomRightRadius: 25,
-          padding: 10
+          borderRadius: 10,
+          // borderTopLeftRadius: 25,
+          // borderBottomRightRadius: 25,
+          padding: 10,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 5,
+          },
+          shadowOpacity: 0.34,
+          shadowRadius: 6.27,
+
+          elevation: 10,
         },
         fab: {
             backgroundColor: 'white',
@@ -44,13 +54,24 @@ module.exports = StyleSheet.create({
         },
         header: {
             paddingHorizontal: 15,
-            height: 55,
-            borderBottomColor: 'black',
-            borderBottomWidth: 2,
+            height: 65,
+            width: widthWindow,
+            // borderBottomColor: 'black',
+            // borderBottomWidth: 2,
+            backgroundColor: 'white',
             marginBottom: 5,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 2,
+              height: 1,
+            },
+            shadowOpacity: 0.23,
+            shadowRadius: 2.62,
+
+            elevation: 4,
         },  
         body: {
             flexDirection: 'column',
@@ -68,15 +89,21 @@ module.exports = StyleSheet.create({
             // paddingBottom: 30,
             height: 50,
             borderRadius: 100,
-            borderColor: 'black',
-            borderWidth: 2,
             width: widthWindow/2+120,
-            justifyContent: 'center',
+            // justifyContent: 'center',
             paddingLeft: 25,
             paddingRight: 25,
             overflow: 'hidden',
-            marginBottom: 21
-            
+            marginBottom: 21,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 5,
+            },
+            shadowOpacity: 0.5,
+            shadowRadius: 5.62,
+
+            elevation: 3,
             // backgroundColor: 'green'
         },
         footer: {
@@ -122,7 +149,7 @@ module.exports = StyleSheet.create({
           },
           shadowOpacity: 0.22,
           shadowRadius: 2.22,
-          elevation: 3,
+          elevation: 7,
         },
         textPop: {
           textAlign: "center",
@@ -140,12 +167,12 @@ module.exports = StyleSheet.create({
           width: widthWindow*65/100,
           height: heightWindow-20,
           left: 0,
-          elevation: 3,
+          elevation: 5,
           backgroundColor: 'white',
-          borderRightColor: 'black',
-          borderRightWidth: 2,
-          borderTopRightRadius: 100,
-          borderBottomRightRadius: 100,
+          // borderRightColor: 'black',
+          // borderRightWidth: 2,
+          // borderTopRightRadius: 100,
+          // borderBottomRightRadius: 100,
           flexDirection: 'column',
           zIndex: 4 
         },
@@ -176,6 +203,7 @@ module.exports = StyleSheet.create({
           // textAlign: 'center',
           fontWeight: 'bold',
           marginBottom: 15,
+          fontFamily: 'Open Sans',
           // backgroundColor: 'black',
           textAlignVertical: 'top'
         },
@@ -183,20 +211,28 @@ module.exports = StyleSheet.create({
           fontSize: 10,
           textAlign: 'right',
           padding: 5,
+          color: 'white',
+          fontWeight: 'bold'
           // marginRight: 3
         },
         textTitle: {
-          fontSize: 15,
+          fontSize: 17,
+          color: 'white',
+          fontWeight: 'bold',
+          lineHeight: 20
           // marginRight: 3
         },
-        textCategory: {
-          fontSize: 10,
+        textCategory2: {
+          fontSize: 12,
+          color: 'white'
           // marginRight: 3
         },
         textDetail: {
-          fontSize: 10,
+          fontSize: 12,
           marginTop: 4,
-          lineHeight: 14
+          lineHeight: 14,
+          color: 'white',
+          fontWeight: 'bold'
         },
         
         sideImg:{
@@ -228,6 +264,12 @@ module.exports = StyleSheet.create({
           width: 200,
           // marginLeft:50,
           
+        },
+        textCategory:{
+          color:'black', 
+          marginLeft:50, 
+          fontWeight:'bold', 
+          marginBottom:5
         },
         pickerShadow: {
           height: 40,
