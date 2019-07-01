@@ -22,18 +22,20 @@ import axios from 'axios'
 import { SearchBar } from 'react-native-elements';
 import moment from 'moment'
 let styles = require('../assets/style')
-
+import {connect} from 'react-redux'
+import {fetchNotes} from '../redux/actions/notes'
+// import 'react-native-navigation'
+// import redux
 
 // type Props = {
-
-export default class App extends Component {
+class App extends Component {
     constructor(){
         super();
         this.state = {
             counter: 0,
             Title: 'Mermaid',
             Pop: 0,
-            isLoad: false,
+            isLoading: false,
             Note: []
             // modalVisible: true
         }
@@ -48,29 +50,57 @@ export default class App extends Component {
         })
     }
     componentDidMount(){
-      axios.get(`http://192.168.6.119:3001/notes?join=category+id_category+no`).then(
-        res => {
-          const data = res.data
-          this.setState({
-            Note: data.data
-          })
-          // return data.data;
-        }
-        )
-        .catch(function(error) {
-          console.log(error);
-          // ADD THIS THROW error
-          throw error;
-        });
+      // axios.get(`http://192.168.6.119:3001/notes?join=category+id_category+no`).then(
+      //   res => {
+      //     const data = res.data
+      //     this.setState({
+      //       Note: data.data
+      //     })
+      //     // return data.data;
+      //   }
+      //   )
+      //   .catch(function(error) {
+      //     console.log(error);
+      //     // ADD THIS THROW error
+      //     throw error;
+      //   });
         // console.log(this.state.Note)
-
+      this.getData();
     }
     componentWillUpdate(){
       
     }
+    getData = () => {
+      this.props.dispatch(fetchNotes())
+    }
+    renderItem = ({item, index}) => {
+      let color= ''
+      if(item.id_category == 1){
+        color = '#2FC2DF'  
+      }if (item.id_category == 2){
+        color = '#FAD06C'
+      }
+      if (item.id_category == 3){
+        color = 'red'
+      }
+      if (item.id_category == 4){
+        color = '#FF92A9'
+      }
+      return    (
+          <TouchableOpacity  onPress={() =>  this._onPress(item.title, item.note, item.id, item.id_category)}>
+              <View style={[styles.box, {backgroundColor:color}] } >
+                  <Text style={styles.textDateList}>{moment(item.time).format("YYYY-MM-DD")}</Text>
+                  <Text numberOfLines={1} style={styles.textTitle}>{item.title}</Text>
+                  <Text numberOfLines={1} style={styles.textCategory2}>{item.category}</Text>
+                  <Text numberOfLines={4} style={styles.textDetail}>{item.note}</Text>
+              </View>
+          </TouchableOpacity>
+        )
+      }
+    _keyExtractor = (item, index) => item.id
     render() {
       let tgl = moment(new Date()).format("YYYY-MM-DD")
-      
+      console.log(this.props.notes)
     return (
         <View style={styles.container}>
             {this.state.Pop == 1 && <Pop/>}
@@ -81,7 +111,7 @@ export default class App extends Component {
             {/* <ScrollView contentContainerStyle={styles.body}> */}
             <TextInput style={styles.searchBody} placeholder={`SearchBar...`}>{}</TextInput>
             <View style={{height:410}}>
-            <FlatList
+            {/* <FlatList
                 data={this.state.Note}
                 numColumns={2}
                 
@@ -110,6 +140,14 @@ export default class App extends Component {
                         )
                     }
                 }
+            /> */}
+            <FlatList
+            data={this.props.notes.notes}
+            keyExtractor={this._keyExtractor}
+            renderItem={this.renderItem}
+            numColumns={2}
+            refreshing={this.props.notes.fetching}
+            onRefresh={this.getData}
             />
             </View>
 
@@ -126,4 +164,10 @@ export default class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    notes: state.home
+  }
+}
 
+export default connect(mapStateToProps)(App)
