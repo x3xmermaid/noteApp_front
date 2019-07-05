@@ -7,6 +7,9 @@ import Sidebar from '../components/sideBar'
 import HeaderItem from '../components/headerItem'
 import HeaderImage from '../components/headerImage'
 import axios from 'axios'
+import { connect } from 'react-redux';
+import {fetchCategory} from '../redux/actions/category'
+import {fetchNotes, addNotes, editNotes} from '../redux/actions/notes'
 
 class Header extends Component {
     constructor(props){
@@ -40,66 +43,47 @@ class Header extends Component {
         })
     }
     _onPressButtonBack = () => {
+        this.props.dispatch({type:"SET_ID", payload: null})
         const { navigation } = this.props;
         navigation.navigate('Home')
     }
-    _postNote= () =>{
-        // console.log(this.state.sqlTitle)
-        axios({
-            method: 'post',
-            url: 'http://192.168.6.119:3001/notes',
-            data: {
-                title: this.state.sqlTitle,
-                note: this.state.sqlNote,
-                time: 'now()',
-                id_category: this.state.pickCategory,
-            }           
-          }).then(function (res){
-            console.log(res)
-          }).catch(function (err){
-            console.log(err)
-          })
-        // console.log('hihay')
-      }
-      _postPatch= () =>{
-        // console.log(this.state.sqlTitle)
-        let url = 'http://192.168.6.119:3001/notes?where=id+'+this.state.sqlID
-        console.log(url)
-        axios({
-            method: 'patch',
-            url: url,
-            data: {
-                title: this.state.sqlTitle,
-                note: this.state.sqlNote,
-                id_category: this.state.pickCategory,
-            }           
-          }).then(function (res){
-            console.log(res)
-          }).catch(function (err){
-            console.log(err)
-          })
-        // console.log('hihay')
-      }
       componentDidMount(){
 
       }
       componentWillReceiveProps(props){
+        // console.log("hahaha"+props.sqlID)
         this.setState({
                 sqlNote: props.sqlNote,
                 sqlTitle: props.sqlTitle,
                 pickCategory: props.pickCategory,
-                sqlID: props.id
+                sqlID: props.sqlID
             })
       }
       _handler = () =>{
-        if(this.state.sqlID == undefined){
-            this._postNote();
+          console.log(this.state.sqlID)
+        //   let search = null
+        if(this.state.sqlID === undefined){
+            this.props.dispatch(addNotes(this.state.sqlTitle, this.state.sqlNote, this.state.pickCategory))
+            // this.props.notes.notes
         }else{
-            this._postPatch();
+            this.props.dispatch(editNotes(this.state.sqlID, this.state.sqlTitle, this.state.sqlNote, this.state.pickCategory))
+            if(this.props.notes.search !== ''){
+                // search = this.props.notes.search
+                console.log("data")
+                this.props.dispatch(getSearch(this.props.notes.search,this.props.notes.sort ,this.props.notes.idCategory, this.props.notes.pageLimit))
+            }else{
+                console.log("data2")
+                this.props.dispatch(fetchNotes(this.props.notes.search,this.props.notes.sort ,this.props.notes.idCategory, this.props.notes.pageLimit))
+            }
         }
+        // 
+        const { navigation } = this.props;
+        // this
+        // this.props.dispatch(fetchNotes(null, null, null, null))
+        navigation.navigate('Home')
       }
     render(){
-        // console.log(this.props.titleHeader)
+        console.log(this.props.notes.idNotes)
         return (
             <View >
                 {/* {this.state.Pop == true && <Pop _postNote={this._postNote}/>} */}
@@ -108,21 +92,18 @@ class Header extends Component {
                 <View style={styles.header}>
                     <HeaderImage imageSource={this.state.imageSource2} _onPressButton={this._onPressButtonBack} headerStyle={this.state.style2}></HeaderImage>
                     <HeaderItem headerText={this.props.titleHeader}></HeaderItem>
-                    {/* <Button onPress={this._handler} title="submit" style={styles.popBox}></Button> */}
                     <HeaderImage imageSource={this.state.imageSource} _onPressButton={this._handler} headerStyle={this.state.style1}></HeaderImage>
-                    {/* <HeaderImage imageSource={this.state.imageSource} onPressButton={this._postNote} headerStyle={this.state.style1}></HeaderImage> */}
-                    {/* <HeaderImage imageSource={this.state.imageSource}></HeaderImage> */}
-                    {/* <TouchableWithoutFeedback onPress={() => this._onPressButtonSideBar(true)} >
-                        <ImageBackground source={require('../assets/img/img.png')} style={styles.itemHeader} ></ImageBackground>
-                    </TouchableWithoutFeedback> */}
-                        {/* <Text style={styles.textHeader}>{"Mermaid"}</Text>
-                    <TouchableWithoutFeedback onPress={() => this._onPressButtonPop(true)} >
-                        <ImageBackground source={require('../assets/img/sort-512.png')} style={styles.iconHeader} ></ImageBackground>
-                    </TouchableWithoutFeedback> */}
                 </View>
             </View>
         )
     }
 }
 
-export default withNavigation(Header)
+const mapStateToProps = (state) => {
+    return {
+      notes: state.home,
+      category: state.category
+    }
+}
+// export default withNavigation(Header)
+export default connect(mapStateToProps)(withNavigation(Header))

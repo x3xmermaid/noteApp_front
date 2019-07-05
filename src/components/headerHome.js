@@ -5,6 +5,8 @@ import Pop from '../components/popBox'
 import Sidebar from '../components/sideBar'
 import HeaderItem from '../components/headerItem'
 import HeaderImage from '../components/headerImage'
+import {fetchNotes} from '../redux/actions/notes'
+import {connect} from 'react-redux'
 
 class Header extends Component {
     constructor(props){
@@ -33,15 +35,15 @@ class Header extends Component {
         })
     }
     _onPressButtonSideBar = (value) => {
-        this.setState({
-            SideBar:  value,
-        })
+        this.props.dispatch({type: "SET_SIDEBAR", payload: value})
     }
     render(){
         return (
             <View >
                 {this.state.Pop == true && <Pop _onPressButtonPop={this._onPressButtonPop}/>}
-                {this.state.SideBar == true && <Sidebar _onPressButtonSideBar={this._onPressButtonSideBar}/>}
+                {this.props.notes.sideBar == true && <Sidebar _onPressButtonSideBar={this._onPressButtonSideBar} >
+                {/* <TouchableOpacity activeOpacity={10} style={[styles.container, {backgroundColor:'blue', height:400, width:600}]} onPress></TouchableOpacity> */}
+                </Sidebar>}
                 {/* <Sidebar></Sidebar> */}
                 <View style={styles.header}>
                     <HeaderImage imageSource={this.state.imageSource2} _onPressButton={this._onPressButtonSideBar} headerStyle={this.state.style2}></HeaderImage>
@@ -60,5 +62,11 @@ class Header extends Component {
         )
     }
 }
-
-export default Header
+const mapStateToProps = (state) => {
+    return {
+      notes: state.home,
+      category: state.category
+    }
+  }
+  
+  export default connect(mapStateToProps)(Header)

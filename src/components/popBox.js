@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {TouchableOpacity, View , Text, StyleSheet, ImageBackground} from 'react-native'
 // import console = require('console');
 var styles = require('../assets/style')
+import {connect} from 'react-redux'
+import {fetchNotes, getSearch} from '../redux/actions/notes'
 
 class Pop extends Component {
     constructor(){
@@ -17,7 +19,16 @@ class Pop extends Component {
             // this
             console.log("HIhay")
     }
-    _Handler= () => {
+    _Handler= (value) => {
+        // this.props._onPressButtonPop(false)
+        this.props.dispatch({type: "SET_SORT", payload: value})
+        if(this.props.notes.search !== ''){
+
+            this.props.dispatch(getSearch(this.props.notes.search, value, this.props.notes.idCategory, null))
+        }else{
+            this.props.dispatch(fetchNotes(null, value, this.props.notes.idCategory, null))
+
+        }
         this.props._onPressButtonPop(false)
     }
     render(){
@@ -25,10 +36,10 @@ class Pop extends Component {
             // <View >
                 <View style={styles.popBox}>
                     {/* <View> */}
-                    <TouchableOpacity onPress={this._Handler}>
+                    <TouchableOpacity onPress={() => this._Handler('ASC')}>
                         <Text style={styles.textPop}>{"Ascending"}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this._Handler}>
+                    <TouchableOpacity onPress={() => this._Handler('DESC')}>
                         <Text style={styles.textPop}>{"Descending"}</Text>
                     </TouchableOpacity>
                     {/* </View> */}
@@ -39,4 +50,11 @@ class Pop extends Component {
     }
 }
 
-export default Pop
+// export default Pop
+const mapStateToProps = (state) => {
+    return {
+      notes: state.home
+    }
+}
+  
+export default connect(mapStateToProps)(Pop)

@@ -14,12 +14,15 @@ import styles from '../assets/style'
 import dummy from '../assets/dummy'
 import { TextInput } from 'react-native-gesture-handler';
 import axios from 'axios'
+import {connect} from 'react-redux'
+import {fetchNotes} from '../redux/actions/notes' 
+import {fetchCategory} from '../redux/actions/category' 
 
 // type Props = {};
-export default class App extends Component {
+class App extends Component {
   constructor(){
     super();
-    console.log(`${Date.now()}. constructor`)
+    // console.log(`${Date.now()}. constructor`)
     this.state ={
       refresh: 0,
       title: '',
@@ -30,9 +33,6 @@ export default class App extends Component {
       id_category: ''
     }
     
-  }
-  componentWillMount(){
-    console.log(`${Date.now()}. willMount`)
   }
   componentDidMount(){
     const {navigation} = this.props;
@@ -47,52 +47,39 @@ export default class App extends Component {
       id_category: id_category,
       id: id
     })
-
-    axios.get(`http://192.168.6.119:3001/category`).then(
-      res => {
-        const data = res.data
-        this.setState({
-          category: data.data
-        })
-      }
-    ).catch(function(err){
-      console.log(err)
-      throw err
-    })
-    
+    // this.props.dispatch({type: "SET_ID", payload: id})
+    this.getData();
   }
   componentWillUnmount(){
     const {navigation} = this.props;
 
   }
-  componentWillUpdate(){
-    console.log(`${Math.floor(Date.now())}. willUpdate`)
-  }
-  componentDidUpdate(){
-    console.log(`${Math.floor(Date.now())}. didUpdate`)
+  getData = () =>{
+    this.props.dispatch(fetchCategory());
   }
   render() {
-    console.log(this.state.id)
+    // console.log(this.state.id_category)
+    // console.log(this.props.category)
     // let display = `NUmber refresh : ${this.state.refresh}`
     
+    console.log(this.state.id)
     return (
-      
       <View style={styles.container}>
-        <Header titleHeader={"Note Edit"} sqlTitle={this.state.title} sqlNote={this.state.note} pickCategory={this.state.pickCategory} id={this.state.id}></Header>
+        <Header titleHeader={"Note Edit"}  sqlNote={this.state.note} sqlTitle={this.state.title} pickCategory={this.state.id_category} sqlID={this.state.id}></Header>
         <TextInput
-        onChangeText={(data) => this.setState({ title: data })}
+        onChangeText={(data) => this.setState({title: data })}
         style={styles.editSTyle} multiline={true} numberOfLines = {1} placeholder={"ADD TITLE ..."}>{this.state.title}</TextInput>
         <TextInput
-        onChangeText={(data) => this.setState({ note: data })}
+        onChangeText={(data) => this.this.setState({note: data })}
         style={styles.editSTyle} multiline={true} numberOfLines = {4} placeholder={"ADD DESCRIPTION ..."}>{this.state.note}</TextInput>
         <Text style={styles.textCategory}>{"CATEGORY"}</Text>
         <View style={styles.pickerShadow}>
           <Picker
-            selectedValue={this.state.pickCategory}
+            selectedValue={this.state.id_category}
             style={styles.picker}
             onValueChange={(itemValue, itemIndex) =>
-              this.setState({pickCategory: itemValue})}>
-            {this.state.category.map((item, index) => {
+              this.setState({id_category: itemValue })}>
+            {this.props.category.category.map((item, index) => {
                     return (
                         <Picker.Item label={item.category} value={item.no}/>
                     )
@@ -104,4 +91,12 @@ export default class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    notes: state.home,
+    category: state.category
+  }
+}
+// export default withNavigation(Header)
+export default connect(mapStateToProps)(App)
 
