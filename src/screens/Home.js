@@ -57,12 +57,6 @@ class App extends Component {
       this.getData();
      
     }
-    // componentWillUpdate(){
-    //   // this.getSearch();
-    //   this.props.dispatch(fetchNotes(null,null))
-    //   this.props.dispatch({ type:"SET_REFRESH"})
-    //   console.log('willupdate'+this.props.notes.isRefresh)
-    // }
     getData = () => {
       this.props.dispatch(fetchNotes(null, this.props.notes.sort, this.props.notes.idCategory, null))
       
@@ -148,9 +142,6 @@ class App extends Component {
             {this.state.Pop == 1 && <Pop/>}
             <Head />
             <View style={styles.body}>
-                {/* <Head/> */}
-                {/* <View style={styles.space}></View> */}
-            {/* <ScrollView contentContainerStyle={styles.body}> */}
             <TextInput
             onChangeText={lodash.debounce(this.getSearch, 1000)}
              style={styles.searchBody} placeholder={`SearchBar...`}>{}</TextInput>

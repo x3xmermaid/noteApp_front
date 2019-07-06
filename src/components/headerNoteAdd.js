@@ -9,7 +9,7 @@ import HeaderImage from '../components/headerImage'
 import axios from 'axios'
 import { connect } from 'react-redux';
 import {fetchCategory} from '../redux/actions/category'
-import {fetchNotes, addNotes, editNotes} from '../redux/actions/notes'
+import {fetchNotes, addNotes, editNotes, getSearch} from '../redux/actions/notes'
 
 class Header extends Component {
     constructor(props){
@@ -43,9 +43,10 @@ class Header extends Component {
         })
     }
     _onPressButtonBack = () => {
+
         this.props.dispatch({type:"SET_ID", payload: null})
         const { navigation } = this.props;
-        navigation.navigate('Home')
+        navigation.goBack()
     }
       componentDidMount(){
 
@@ -64,15 +65,12 @@ class Header extends Component {
         //   let search = null
         if(this.state.sqlID === undefined){
             this.props.dispatch(addNotes(this.state.sqlTitle, this.state.sqlNote, this.state.pickCategory))
-            // this.props.notes.notes
+            
         }else{
             this.props.dispatch(editNotes(this.state.sqlID, this.state.sqlTitle, this.state.sqlNote, this.state.pickCategory))
             if(this.props.notes.search !== ''){
-                // search = this.props.notes.search
-                console.log("data")
                 this.props.dispatch(getSearch(this.props.notes.search,this.props.notes.sort ,this.props.notes.idCategory, this.props.notes.pageLimit))
             }else{
-                console.log("data2")
                 this.props.dispatch(fetchNotes(this.props.notes.search,this.props.notes.sort ,this.props.notes.idCategory, this.props.notes.pageLimit))
             }
         }
@@ -80,7 +78,7 @@ class Header extends Component {
         const { navigation } = this.props;
         // this
         // this.props.dispatch(fetchNotes(null, null, null, null))
-        navigation.navigate('Home')
+        navigation.goBack()
       }
     render(){
         console.log(this.props.notes.idNotes)

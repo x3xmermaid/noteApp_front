@@ -1,31 +1,23 @@
 import axios from 'axios'
 // import console  require('console');
 
-// export function fetchNotes(){
-//     return {
-//         type: 'FECTH_NOTE',
-//         payload: axios.get('http://192.168.6.120:3001/notes').then((res)=>res.data.note)
-//     }
-// }
-
 export const fetchNotes = (search, sort, category, limit) =>{
+    console.log("data"+category)
     let link = `http://192.168.6.119:3001/notes?join=category+id_category+no&page=1`
-    if(search !== null && category !== 0){
+    if(search === null && category === null){
+        link = link+`&where=id_category+`+category
+    }else if(search !== null && category === null){
+        link = link+`&search=title+`+search+`+id_category+`+category
+    }else if(search !== null && category !== 0){
         link = link+`&search=title+`+search+`+id_category+`+category
     }else if(search === null && category !== 0){
-        link = link+`&search=id_category+`+category
+        link = link+`&where=id_category+`+category
     }else if(search !== null && category === 0){
         link = link+`&search=title+`+search
     }
-    // if(search !== null ){
-    //     link = link+`&search=title+`+search
-    // }
     if(sort !== null){
         link = link+`&sorting=time+`+sort
     }
-    // if(category !== null){
-    //     link = link+`&search=id_category+`+category
-    // }
     if(limit !==null ){
         link = link+`&limit=`+limit
     }
@@ -40,10 +32,14 @@ export const fetchNotes = (search, sort, category, limit) =>{
 
 export const getSearch = (search, sort, category, limit) =>{
     let link = `http://192.168.6.119:3001/notes?join=category+id_category+no&page=1`
-    if(search !== null && category !== 0){
+    if(search === null && category === null){
+        link = link+`&where=id_category+`+category
+    }else if(search !== null && category === null){
+        link = link+`&search=title+`+search+`+id_category+`+category
+    }else if(search !== null && category !== 0){
         link = link+`&search=title+`+search+`+id_category+`+category
     }else if(search === null && category !== 0){
-        link = link+`&search=id_category+`+category
+        link = link+`&where=id_category+`+category
     }else if(search !== null && category === 0){
         link = link+`&search=title+`+search
     }

@@ -37,6 +37,9 @@ class Pop extends Component {
                 <View style={styles.popBox}>
                     {/* <View> */}
                     <TouchableOpacity onPress={() => this._Handler('ASC')}>
+                        <Text style={styles.textPop}>{"- - - - - - - - - -"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this._Handler('ASC')}>
                         <Text style={styles.textPop}>{"Ascending"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this._Handler('DESC')}>

@@ -24,6 +24,7 @@ const initialState = {
 
 const homeReducer = function(state=initialState, action){
     let newNotes = state.notes
+    let newSearch = state.search
     switch (action.type) {
         case "SET_TITLE":
             state = {...state, title:action.payload};
@@ -82,7 +83,8 @@ const homeReducer = function(state=initialState, action){
             return  {...state, fetching:true};
             break;
         case "ADD_NOTE_FULFILLED":
-            
+            let elementNote = []
+            let elementSearch = []
             let newELement = {
                 id: action.payload.data.row.insertId,
                 title: action.payload.data.parameter[0],
@@ -96,8 +98,17 @@ const homeReducer = function(state=initialState, action){
             // console.log(action.payload.data.parameter[2])
             // console.log(action.payload.config.data[0]["note"])
             // console.log("id3"+action.payload.config.data[0]['title'])
-            let element = [newELement].concat(newNotes)
-            return  {...state, notes:element, fetching:false, message:action.payload};
+            if(state.idCategory === 0 || newELement.id_category === state.idCategory){
+                elementNote = [newELement].concat(newNotes)
+            }else{
+                elementNote = newNotes
+            }
+            if(state.search !== ''){
+                elementSearch = [newELement].concat(newNotes)
+            }else{
+                elementSearch = newSearch
+            }
+            return  {...state, notes:elementNote, searchNotes:elementSearch,fetching:false, message:action.payload};
             break;
         case "ADD_NOTE_REJECTED":
             return  {...state, fetching:false, error: action.payload};

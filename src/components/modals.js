@@ -3,6 +3,7 @@ import { TouchableOpacity, View, TextInput, Text, StyleSheet } from 'react-nativ
 import {connect} from 'react-redux'
 import {addCategory, fetchCategory} from '../redux/actions/category'
 import {fetchNotes} from '../redux/actions/notes'
+import { withNavigation } from 'react-navigation';
 
 class Modals extends React.Component {
 	constructor(){
@@ -25,6 +26,8 @@ class Modals extends React.Component {
 		this.props.dispatch(addCategory(this.props.category.categoryName, this.props.category.image, color))
 		this.props.dispatch({type:"SET_SIDEBAR", payload: false})
 		this.props.setModalVisible(false);
+		this.props.dispatch(fetchCategory())
+		this.props.navigation.closeDrawer()
 	}
 	render() {
 		console.log(this.props.category.categoryName)
@@ -59,7 +62,7 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(Modals)
+export default connect(mapStateToProps)(withNavigation(Modals))
 const styles = StyleSheet.create({
 	title: {
 		margin: 5,

@@ -134,13 +134,13 @@ module.exports = StyleSheet.create({
           margin: 3
         },
         popBox: {
-          height: 80,
+          height: 120,
           width: 120,
           position: 'absolute',
           right: 3,
-          top: 3,
+          top: 5,
           padding: 10,
-          zIndex: 3,
+          zIndex: 20,
           backgroundColor: 'white',
           shadowColor: "#000",
           shadowOffset: {
@@ -176,6 +176,11 @@ module.exports = StyleSheet.create({
           flexDirection: 'column',
           zIndex: 4 
         },
+        sideBody2: {
+          backgroundColor: 'white',
+          flexDirection: 'column',
+          zIndex: 4 
+        },
         sideIcon: {
           // borderRadius: 100,
           height: 20,
@@ -185,7 +190,7 @@ module.exports = StyleSheet.create({
         },
         sideFlat: {
           height: 250,
-          marginTop: 65,
+          // marginTop: 65,
           // backgroundColor: 'blue',
           // alignItems: 'top'
           // paddi
