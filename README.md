@@ -35,6 +35,7 @@ React Native invokes Objective-C APIs to render to iOS components, or Java APIs 
 5. And the last thing just type `react-native run-android` in your terminal or cmd , be sure if you connected with a device on debugging mode or use the emulator on debugging mode too.
 
 ## Related Project
+Front End `https://github.com/x3xmermaid/noteApp_front`
 Back End `https://github.com/x3xmermaid/noteApp`
 
 ## Released APK
@@ -47,27 +48,21 @@ Here! `https://drive.google.com/file/d/1wou8ODABpFLs7KrKkF5vHPUIwvB0a3of/view?us
 <p align='center'>
   <span>
    <h2>HOME</h2>
-  <img src="http://imgur.com/qywU99ml.png" />
+  <img src="https://i.imgur.com/vcGiDNZ.png" />
 <h2>SORT</h2>
-  <img src="http://imgur.com/yp6NP5jl.png" />
+  <img src="https://i.imgur.com/Rtwpzpe.png" />
 <h2>SEARCH</h2>
-  <img src="http://imgur.com/obGpPqCl.png" />
+  <img src="https://i.imgur.com/smopiaM.png" />
 <h2>MenuDrawer</h2>
-  <img src="http://imgur.com/GicFE1al.png" />
-<h2>GET BY CATEGORY<h2>
-  <img src="http://imgur.com/zPRAuWwl.png" />
-<h2>PULLING REFRESH</h2>
-  <img src="http://imgur.com/avtxzl0l.png" />
+  <img src="https://i.imgur.com/WYAEQK1.png" />
 <h2>ADD CATEGORY</h2>
-  <img src="http://imgur.com/kjaOiVPl.png" />
+  <img src="https://i.imgur.com/HfTB1Sq.png" />
 <h2>DELETE CATEGORY ON LONG PRESS</h2>
-  <img src="http://imgur.com/USuoUdcl.png" />
+  <img src="https://i.imgur.com/k2JzuZf.png" />
 <h2>ADD NOTE</h2>
-  <img src="http://imgur.com/7QK57ZDl.png" />
+  <img src="https://i.imgur.com/0eQcn7e.png" />
 <h2>EDIT NOTE</h2>
-  <img src="http://imgur.com/9FDoSiul.png" />
-<h2>DELETE NOTE ON LONG PRESS</h2>
-  <img src="http://imgur.com/04Skleul.png" />
+  <img src="https://i.imgur.com/UaEjZtb.png" />
 
 
   </span>
