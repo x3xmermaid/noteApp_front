@@ -1,68 +1,77 @@
-<h1 align="center">React Native - Simple Note App RESTful API</h1>
+<h1 align='center'>React Native Note App With Redux</h1>
 
-<p align="center">
-  <a href="https://nodejs.org/">
-    <img alt="restfulapi" title="Restful API" src="https://cdn-images-1.medium.com/max/871/1*d2zLEjERsrs1Rzk_95QU9A.png">
+<p align='center'>
+  <a href='https://facebook.github.io/react-native/'>
+  <img src='https://kreitech.io/blog/wp-content/uploads/2018/10/1_-NOQtyJAGQ1RNC3iVt_thA.png' />
   </a>
 </p>
 
-## Table of contents
-* [Introduction](#introduction)
-* [Requirements](#requirements)
-* [How to run the app ?](#how-to-run-the-app-)
-* [Set up .env file](#set-up-env-file)
-* [End Point List](#end-point-list)
+<br>
+<br>
 
 ## Introduction
-[![Express.js](https://img.shields.io/badge/Express.js-4.x-orange.svg?style=rounded-square)](https://expressjs.com/en/starter/installing.html)
+[![React Native](https://img.shields.io/badge/React%20Native-0.60-blue.svg?style=rounded-square)](https://facebook.github.io/react-native/)
 [![Node.js](https://img.shields.io/badge/Node.js-v.10.16-green.svg?style=rounded-square)](https://nodejs.org/)
 
-Here i was built the Simple Note App which specially for backend only.
+### What is React Native ?
+React Native is an open-source mobile application framework created by Facebook. It is used to develop applications for Android, iOS and UWP by enabling developers to use React along with native platform capabilities. [[1]](https://en.wikipedia.org/wiki/React_Native)
 
-Express.js, or simply Express, is a web application framework for Node.js. [More about Express](https://en.wikipedia.org/wiki/Express.js)
+### How React Native works ?
+Short explanation about **How React Native Works**.
 
+React Native invokes Objective-C APIs to render to iOS components, or Java APIs to render to Android components. This sets React Native apart from other cross-platform app development options, which often end up rendering web-based views.
+<br>
+<br>
 ## Requirements
-1. node_modules
-2. Postman
-3. Web Server (ex. localhost)
+1. npm (node package manager)
+2. react-native-cli (from npm)
+3. notes backend (`https://github.com/alavanta/restful-note-app-api-.git`)
 
 ## How to run the app ?
-1. Open CMD or Terminal and enter to the app directory
-2. Type `npm install`
-3. Make a new file called **.env** in the root directory, set up first [here](#set-up-env-file)
-4. Turn on Web Server and MySQL can using Third-party tool like xampp, etc.
-5. Open Postman desktop application or Chrome web app extension that has installed before
-6. Choose HTTP Method and enter request url.(ex. localhost:3000/notes)
-7. You can see all the end point [here](#end-point-list)
+1. Clone or download first this repository with `git clone https://github.com/alavanta/simple-note-app-fullstack.git`
+2. Open the project in your favorite text editor
+3. Open your terminal or cmd and type `npm install`
+4. Run backend first
+5. And the last thing just type `react-native run-android` in your terminal or cmd , be sure if you connected with a device on debugging mode or use the emulator on debugging mode too.
 
-## Set up .env file
-Open .env file on your favorite code editor, and copy paste this code below :
-```
-DB_HOST=localhost
-DB_USER=root // default
-DB_PASS= // default
-DB_NAME=simple_note_app
-```
+## Related Project
+Front End `https://github.com/alavanta/front-end-simple-note-app.git`<br>
+Back End `https://github.com/alavanta/simple-note-app-fullstack.git`
 
-## End Point List
-**1. GET**
-* `/(table name)` (get table data)
-* `/(table name)?search=(coloumn table)+(coloumn value)` (Get table data by column table and column value)
-* `/(table name)?join=(table2 name)+(coloumn table)+(coloumn table2)` (Get table data by table field and the field value)
+## Released APK
+if u want to test it out , u can download it here `https://bit.ly/2FXdS9X`
+
+## Watch how the app work
+Here! `https://bit.ly/30gZuBi`
+ 
+## Screenshot from the app
+<p align='center'>
+  <span>
+   <h2>HOME</h2>
+  <img src="http://imgur.com/qywU99ml.png" />
+<h2>SORT</h2>
+  <img src="http://imgur.com/yp6NP5jl.png" />
+<h2>SEARCH</h2>
+  <img src="http://imgur.com/obGpPqCl.png" />
+<h2>MenuDrawer</h2>
+  <img src="http://imgur.com/GicFE1al.png" />
+<h2>GET BY CATEGORY<h2>
+  <img src="http://imgur.com/zPRAuWwl.png" />
+<h2>PULLING REFRESH</h2>
+  <img src="http://imgur.com/avtxzl0l.png" />
+<h2>ADD CATEGORY</h2>
+  <img src="http://imgur.com/kjaOiVPl.png" />
+<h2>DELETE CATEGORY ON LONG PRESS</h2>
+  <img src="http://imgur.com/USuoUdcl.png" />
+<h2>ADD NOTE</h2>
+  <img src="http://imgur.com/7QK57ZDl.png" />
+<h2>EDIT NOTE</h2>
+  <img src="http://imgur.com/9FDoSiul.png" />
+<h2>DELETE NOTE ON LONG PRESS</h2>
+  <img src="http://imgur.com/04Skleul.png" />
 
 
+  </span>
+</p>
 
-**2. POST**
-* `/notes`
-* `/category`
-
-**3. PATCH**
-* `/notes/:id` (Update notes by id)
-* `/category/:id` (Update category by id)
-
-**4. DELETE**
-* `/notes/:id` (Delete notes by id)
-* `/category/:id` (Delete category by id)
-
-<hr>
 
